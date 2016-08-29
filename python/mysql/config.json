@@ -1,0 +1,10 @@
+{
+	"hostname":"localhost",
+	"username":"root",
+	"password":"123123",
+	"database":"cph",
+	"port":3306,
+	"charset":"UTF-8",
+	"action":"select",
+	"sql":"select * from cph limit 10"
+}
