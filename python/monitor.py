@@ -1,4 +1,11 @@
-from time import sleep
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Date    : 2016-09-01 15:55:56
+# @Author  : Your Name (you@example.org)
+# @Link    : http://example.org
+# @Version : $Id$
+
+
 from urllib.request import urlopen
 from json import dumps, loads
 from pymysql import connect
@@ -6,11 +13,12 @@ from os import path
 
 
 class Monitor(object):
-    def __init__(self,safeip,confsfile,statusfile,confs):
+
+    def __init__(self, safeip, confsfile, statusfile, confs):
         self.safeip = safeip
         self.confsfile = confsfile
-        self.statusfile=statusfile
-        self.confs=confs
+        self.statusfile = statusfile
+        self.confs = confs
 
     def checkconf(self):
         try:
@@ -43,7 +51,7 @@ class Monitor(object):
             cur = conn.cursor()
             cur.execute(sql)
             result = True
-        except Exception as err:
+        except Exception:
             result = False
         finally:
             conn.commit()
@@ -61,7 +69,7 @@ class Monitor(object):
                 port=3306,
                 charset='utf8')
             cur = conn.cursor()
-            #sql = 'select cont_conf.item_id,contents.id,cont_conf.cont_var,cont_conf.cont_url,cont_conf.cont_sec,contents.cont_text,contents.update_sec from cont_conf left join contents on cont_conf.id=contents.cont_id order by item_id,cont_sec'
+            # sql = 'select cont_conf.item_id,contents.id,cont_conf.cont_var,cont_conf.cont_url,cont_conf.cont_sec,contents.cont_text,contents.update_sec from cont_conf left join contents on cont_conf.id=contents.cont_id order by item_id,cont_sec'
             sql = 'select item_id,id,cont_var,cont_url,cont_sec,cont_title from cont_conf'
             cur.execute(sql)
             data = cur.fetchall()
@@ -103,8 +111,8 @@ class Monitor(object):
             confsfile = open(self.confsfile)
             self.confs = loads(confsfile.read())
             confsfile.close()
-        sql=[]
-        cont_id=[]
+        sql = []
+        cont_id = []
         for m in self.confs:
             for n in self.confs[m]:
                 # print(self.confs[m][n]['cont_url'][0:17])
@@ -122,10 +130,10 @@ class Monitor(object):
                             '",' + str(upsec) + ',"2016-06-08 13:37:59")')
                         upsec = upsec + 1
         print(sql)
-        cont_id=list(set(cont_id))
+        cont_id = list(set(cont_id))
         for i in cont_id:
-            print(self.insert('update contents set isshow=0 where cont_id='+str(i)))
-            print('update contents set isshow=0 where cont_id='+str(i))
+            print(self.insert('update contents set isshow=0 where cont_id=' + str(i)))
+            print('update contents set isshow=0 where cont_id=' + str(i))
         for i in sql:
             print(self.insert(i))
 if __name__ == "__main__":
@@ -133,5 +141,5 @@ if __name__ == "__main__":
     confsfile = '/home/cph/jsons/cont_conf.json'
     statusfile = '/home/cph/jsons/conf_status.json'
     confs = {}
-    mon=Monitor(safeip,confsfile,statusfile,confs)
+    mon = Monitor(safeip, confsfile, statusfile, confs)
     mon.handle()
