@@ -118,4 +118,3 @@ if __name__ == "__main__":
     confs = {}
     mon = Warn(safeip, confsfile, statusfile, confs)
     mon.handle()
-

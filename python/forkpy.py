@@ -1,5 +1,4 @@
 import os
-
 print('Process (%s) start...' % os.getpid())
 # Only works on Unix/Linux/Mac:
 pid = os.fork()
