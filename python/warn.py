@@ -112,9 +112,10 @@ class Warn(object):
         print(data)
 
 if __name__ == "__main__":
-    safeip = ['192.168.1.5', '192.168.168.130']
+    #safeip = ['192.168.1.5', '192.168.168.130']
     confsfile = '/home/cph/jsons/cont_conf.json'
     statusfile = '/home/cph/jsons/conf_status.json'
     confs = {}
-    mon = Warn(safeip, confsfile, statusfile, confs)
+    #mon = Warn(safeip, confsfile, statusfile, confs)
+    mon = Warn(confsfile, statusfile, confs)
     mon.handle()

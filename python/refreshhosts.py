@@ -4,7 +4,7 @@ import re
 from bs4 import BeautifulSoup
 
 
-def getdata(url="http://github.com/racaljk/hosts/blob/master/hosts"):
+def getdata(url="https://github.com/racaljk/hosts/blob/master/hosts"):
     try:
         data = urllib.request.urlopen(url).read()
         z_data = data.decode('UTF-8')
